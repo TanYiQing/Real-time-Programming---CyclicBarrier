@@ -32,6 +32,7 @@ public class App {
 
         System.out.print("Input Length: ");
         length=scan.nextInt();
+        System.out.println();
 
         MyCyclicBarrier myCyclicBarrier1 = new MyCyclicBarrier(length,barrier1, barrier2);
 
@@ -83,9 +84,7 @@ class MyCyclicBarrier implements Runnable {
         while((content=bufferedReader.readLine())!=null){
             words=content.split(" ");
             for(String word : words){
-                word=word.replace(",","");
-                word=word.replace(".","");
-                word=word.replace("/'","");
+                word=word.replaceAll("[(),.'’]", "");
                 if(word.length()==length){
                     if(!list.contains(word)){
                         list.add(word);
@@ -118,7 +117,11 @@ class MyCyclicBarrier implements Runnable {
             }
         }
         for(char finalchar:finalcharacterList){
-            System.out.print(finalchar+", ");
+            if(finalchar == finalcharacterList.get(0)){
+                System.out.print(finalchar);
+            }else{
+                System.out.print(", "+ finalchar);
+            }
         }
         System.out.println();
         System.out.println("Total characters: "+charcount);
